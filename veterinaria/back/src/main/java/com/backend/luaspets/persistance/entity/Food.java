@@ -11,7 +11,5 @@ import lombok.NoArgsConstructor;
 @Entity
 @DiscriminatorValue("food") // Valor que se usará para diferenciar el tipo de producto en la tabla
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Food extends Product{
 }

@@ -10,8 +10,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @DiscriminatorValue("medicine") // Valor que se usará para diferenciar el tipo de producto en la tabla
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 public class Medicine extends Product {
-    
+
 }
