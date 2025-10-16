@@ -2,11 +2,7 @@ package com.backend.luaspets.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -17,12 +13,16 @@ public class SecurityConfig {
                 return http
                         .csrf(csrf -> csrf.disable())
                         .authorizeHttpRequests(auth -> auth
+                                // Permitir acceso a páginas web sin autenticación
                                 .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+                                // Permitir acceso a todos los endpoints de la API sin autenticación
+                                .requestMatchers("/api/**").permitAll()
+                                // Requerir autenticación para cualquier otra ruta
                                 .anyRequest().authenticated()
                         )
                         .formLogin(form -> form
                                 .loginPage("/login")
-                                .defaultSuccessUrl("/api/v1/user", true) // o la ruta que quieras
+                                .defaultSuccessUrl("/api/v1/user", true)
                                 .permitAll()
                         )
                         .logout(logout -> logout
