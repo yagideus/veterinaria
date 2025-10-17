@@ -1,8 +1,8 @@
 package com.backend.luaspets.domain.Services;
 
 import com.backend.luaspets.domain.DTO.ProductDTO;
-import com.backend.luaspets.domain.repository.ProductDTORepository;
-import com.backend.luaspets.persistance.repository.ProductRepository;
+import com.backend.luaspets.domain.repository.ProductRepository;
+import com.backend.luaspets.persistance.repository.ProductRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +13,10 @@ import java.util.Optional;
 public class ProductDTOService {
 
     @Autowired
-    private ProductDTORepository productRepository;
+    private ProductRepository productRepository;
     
     @Autowired
-    private ProductRepository productRepositoryImpl;
+    private ProductRepositoryImpl productRepositoryImpl;
 
     public List<ProductDTO> getAll() {
         return productRepository.getAll();

@@ -9,14 +9,14 @@ import com.backend.luaspets.User.User;
 import com.backend.luaspets.User.UserRepository;
 import com.backend.luaspets.domain.DTO.PetRequest;
 import com.backend.luaspets.domain.DTO.PetResponse;
-import com.backend.luaspets.persistance.crud.PetRepository;
+import com.backend.luaspets.persistance.crud.PetCrudRepository;
 import com.backend.luaspets.persistance.entity.Pet;
 
 @Service
 public class PetService {
     
     @Autowired
-    private PetRepository petRepository;
+    private PetCrudRepository petRepository;
 
     @Autowired
     private UserRepository userRepository;

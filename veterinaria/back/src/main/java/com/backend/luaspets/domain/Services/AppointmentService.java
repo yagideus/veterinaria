@@ -10,7 +10,7 @@ import com.backend.luaspets.User.UserRepository;
 import com.backend.luaspets.domain.DTO.AppointmentRequest;
 import com.backend.luaspets.domain.DTO.AppointmentResponse;
 import com.backend.luaspets.persistance.crud.AppointmentRepository;
-import com.backend.luaspets.persistance.crud.PetRepository;
+import com.backend.luaspets.persistance.crud.PetCrudRepository;
 import com.backend.luaspets.persistance.crud.ServiceRepository;
 import com.backend.luaspets.persistance.entity.Appointment;
 import com.backend.luaspets.persistance.entity.Pet;
@@ -29,7 +29,7 @@ public class AppointmentService {
     private ServiceRepository serviceRepository;
 
     @Autowired
-    private PetRepository petRepository;
+    private PetCrudRepository petRepository;
 
 
     public List<Appointment> getAllAppointments() {

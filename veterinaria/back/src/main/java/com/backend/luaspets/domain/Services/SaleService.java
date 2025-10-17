@@ -15,8 +15,8 @@ import com.backend.luaspets.domain.DTO.SaleDetailResponse;
 import com.backend.luaspets.persistance.crud.AccessoriesRepository;
 import com.backend.luaspets.persistance.crud.FoodRepository;
 import com.backend.luaspets.persistance.crud.MedicineRepository;
-import com.backend.luaspets.persistance.crud.SaleDetailRepository;
-import com.backend.luaspets.persistance.crud.SaleRepository;
+import com.backend.luaspets.persistance.crud.SaleDetailCrudRepository;
+import com.backend.luaspets.persistance.crud.SaleCrudRepository;
 import com.backend.luaspets.persistance.entity.Product;
 import com.backend.luaspets.persistance.entity.Sale;
 import com.backend.luaspets.persistance.entity.SaleDetail;
@@ -27,10 +27,10 @@ import jakarta.transaction.Transactional;
 public class SaleService {
 
     @Autowired
-    private SaleRepository saleRepository;
+    private SaleCrudRepository saleRepository;
 
     @Autowired
-    private SaleDetailRepository saleDetailRepository;
+    private SaleDetailCrudRepository saleDetailRepository;
 
     @Autowired
     private FoodRepository foodRepository;
