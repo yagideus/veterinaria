@@ -9,84 +9,39 @@ import com.backend.luaspets.User.User;
 import com.backend.luaspets.User.UserRepository;
 import com.backend.luaspets.domain.DTO.PetRequest;
 import com.backend.luaspets.domain.DTO.PetResponse;
-import com.backend.luaspets.persistance.crud.PetCrudRepository;
-import com.backend.luaspets.persistance.entity.Pet;
+import com.backend.luaspets.domain.repository.PetRepository;
+
 
 @Service
 public class PetService {
     
-    @Autowired
-    private PetCrudRepository petRepository;
+ @Autowired private PetRepository petRepository;
+    @Autowired private UserRepository userRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<Pet> getAllPets(){
-        return petRepository.findAll();
+    public List<PetResponse> getAllPets() {
+        return petRepository.getAll();
     }
 
-    public PetResponse getPetById(Integer id){
-        Pet pet = petRepository.findById(id).orElseThrow(() -> new RuntimeException("Appointment not found"));
-        PetResponse dto = new PetResponse();
-        dto.setId(pet.getId());
-        dto.setUserId(pet.getOwner().getId());
-        dto.setUserName(pet.getOwner().getFullName());
-        dto.setName(pet.getName());
-        dto.setSpecies(pet.getSpecies());
-        dto.setBreed(pet.getBreed());
-        dto.setSize(pet.getSize());
-        dto.setWeight(pet.getWeight());
-        dto.setAge(pet.getAge());
-        dto.setGender(pet.getGender());
-
-        return dto;
+    public PetResponse getPetById(Integer id) {
+        return petRepository.getById(id);
     }
 
-    public Pet createPet(PetRequest request){
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
-
-        Pet pet = new Pet();
-        pet.setOwner(user);
-        pet.setName(request.getName());
-        pet.setSpecies(request.getSpecies());
-        pet.setBreed(request.getBreed());
-        pet.setSize(request.getSize());
-        pet.setWeight(request.getWeight());
-        pet.setAge(request.getAge());
-        pet.setGender(request.getGender());
-
-        petRepository.save(pet);
-
-        return pet;
+    public PetResponse createPet(PetRequest request) {
+        User owner = userRepository.findById(request.getUserId())
+            .orElseThrow(() -> new RuntimeException("User not found"));
+        return petRepository.save(request, owner);
     }
 
-    // Obtener todas las mascotas de un usuario
-    public List<Pet> getPetsByUserId(Integer userId) {
-        return petRepository.findAllByOwner_Id(userId);
+    public List<PetResponse> getPetsByUserId(Integer userId) {
+        return petRepository.getByOwnerId(userId);
     }
 
-      // Actualizar los campos de una mascota por su ID
-      public Pet updatePet(Integer petId, PetRequest request) {
-        Pet pet = petRepository.findById(petId).orElseThrow(() -> new RuntimeException("Pet not found"));
-        
-        pet.setName(request.getName());
-        pet.setSpecies(request.getSpecies());
-        pet.setBreed(request.getBreed());
-        pet.setSize(request.getSize());
-        pet.setWeight(request.getWeight());
-        pet.setAge(request.getAge());
-        pet.setGender(request.getGender());
-
-        return petRepository.save(pet);
+    public PetResponse updatePet(Integer petId, PetRequest request) {
+        return petRepository.update(petId, request);
     }
 
-    // Eliminar una mascota por su ID
     public void deletePetById(Integer petId) {
-        if (!petRepository.existsById(petId)) {
-            throw new RuntimeException("Pet not found");
-        }
-        petRepository.deleteById(petId);
+        petRepository.delete(petId);
     }
-
 
 }

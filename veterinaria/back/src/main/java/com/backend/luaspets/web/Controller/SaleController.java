@@ -52,16 +52,7 @@ public class SaleController {
 
     @GetMapping
     public ResponseEntity<List<SaleResponse>> getAllSales() {
-        List<Sale> sales = saleService.getAllSales();
-        List<SaleResponse> responseList = sales.stream().map(sale -> {
-            SaleResponse response = new SaleResponse();
-            response.setIdSale(sale.getIdSale());
-            response.setUserId(sale.getUser().getId()); // Asumiendo que tienes un método getUser()
-            response.setSaleDate(sale.getSaleDate());
-            response.setTotalAmount(sale.getTotalAmount());
-            response.setSaleStatus(sale.getSaleStatus());
-            return response;
-        }).collect(Collectors.toList());
+        List<SaleResponse> responseList = saleService.getAllSales();
 
         return ResponseEntity.ok(responseList);
     }
@@ -74,20 +65,27 @@ public class SaleController {
 
     @PostMapping("/create")
     public ResponseEntity<SaleResponse> createSale(@RequestBody SaleRequest saleDTO) {
-    User user = userRepository.findById(saleDTO.getUserId())
-        .orElseThrow(() -> new IllegalArgumentException("User not found"));
     
-    Sale sale = saleService.createSale(user, saleDTO.getSaleDetails());
+        User user = userRepository.findById(saleDTO.getUserId())
+            .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-    // Mapear entidad a DTO
-    SaleResponse response = new SaleResponse();
-    response.setIdSale(sale.getIdSale());
-    response.setUserId(user.getId()); // Si necesitas devolver este dato
-    response.setSaleDate(sale.getSaleDate());
-    response.setTotalAmount(sale.getTotalAmount());
-    response.setSaleStatus(sale.getSaleStatus());
+        SaleResponse response = saleService.createSale(user, saleDTO.getSaleDetails());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    
+    //     User user = userRepository.findById(saleDTO.getUserId())
+    //     .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    
+    // Sale sale = saleService.createSale(user, saleDTO.getSaleDetails());
 
-    return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    // // Mapear entidad a DTO
+    // SaleResponse response = new SaleResponse();
+    // response.setIdSale(sale.getIdSale());
+    // response.setUserId(user.getId()); // Si necesitas devolver este dato
+    // response.setSaleDate(sale.getSaleDate());
+    // response.setTotalAmount(sale.getTotalAmount());
+    // response.setSaleStatus(sale.getSaleStatus());
+
+    // return ResponseEntity.status(HttpStatus.CREATED).body(response);
 }
 
 @GetMapping("/export.xlsx")
@@ -154,32 +152,50 @@ public class SaleController {
         }
 
         // Datos
-        List<Sale> sales = saleService.getAllSales();
+        List<SaleResponse> sales = saleService.getAllSales();
         int rowIndex = 2; // Comienza en la fila 2, después del título y el encabezado
-        for (Sale sale : sales) {
-            Row row = sheet.createRow(rowIndex++);
+        for (SaleResponse sale : sales) {
+                Row row = sheet.createRow(rowIndex++);
 
-            Cell cellId = row.createCell(0);
-            cellId.setCellValue(sale.getIdSale());
-            cellId.setCellStyle(dataStyle);
+                row.createCell(0).setCellValue(sale.getIdSale());
+                row.getCell(0).setCellStyle(dataStyle);
 
-            Cell cellName = row.createCell(1);
-            cellName.setCellValue(sale.getUser().getId());
-            cellName.setCellStyle(dataStyle);
+                row.createCell(1).setCellValue(sale.getUserId());
+                row.getCell(1).setCellStyle(dataStyle);
 
-            Cell cellBrand = row.createCell(2);
-            cellBrand.setCellValue(sale.getSaleDate());
-            cellBrand.setCellStyle(dataStyle);
+                row.createCell(2).setCellValue(sale.getSaleDate().toString());
+                row.getCell(2).setCellStyle(dataStyle);
 
-            Cell cellDescription = row.createCell(3);
-            cellDescription.setCellValue(sale.getTotalAmount().doubleValue());
-            cellDescription.setCellStyle(dataStyle);
+                row.createCell(3).setCellValue(sale.getTotalAmount().doubleValue());
+                row.getCell(3).setCellStyle(currencyStyle);
 
-            Cell cellPrice = row.createCell(4);
-            cellPrice.setCellValue(sale.getSaleStatus());
-            cellPrice.setCellStyle(currencyStyle);
-
+                row.createCell(4).setCellValue(sale.getSaleStatus());
+                row.getCell(4).setCellStyle(dataStyle);
         }
+        // for (Sale sale : sales) {
+        //     Row row = sheet.createRow(rowIndex++);
+
+        //     Cell cellId = row.createCell(0);
+        //     cellId.setCellValue(sale.getIdSale());
+        //     cellId.setCellStyle(dataStyle);
+
+        //     Cell cellName = row.createCell(1);
+        //     cellName.setCellValue(sale.getUser().getId());
+        //     cellName.setCellStyle(dataStyle);
+
+        //     Cell cellBrand = row.createCell(2);
+        //     cellBrand.setCellValue(sale.getSaleDate());
+        //     cellBrand.setCellStyle(dataStyle);
+
+        //     Cell cellDescription = row.createCell(3);
+        //     cellDescription.setCellValue(sale.getTotalAmount().doubleValue());
+        //     cellDescription.setCellStyle(dataStyle);
+
+        //     Cell cellPrice = row.createCell(4);
+        //     cellPrice.setCellValue(sale.getSaleStatus());
+        //     cellPrice.setCellStyle(currencyStyle);
+
+        // }
 
         // Ajustar ancho de columnas manualmente en caso de que autoSizeColumn no sea suficiente
         for (int i = 0; i < headers.length; i++) {

@@ -1,4 +1,4 @@
-package com.backend.luaspets.persistance.repository;
+package com.backend.luaspets.persistance;
 
 import com.backend.luaspets.domain.DTO.ProductDTO;
 import com.backend.luaspets.domain.repository.ProductRepository;

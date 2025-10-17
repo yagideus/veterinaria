@@ -2,7 +2,8 @@ package com.backend.luaspets.domain.Services;
 
 import com.backend.luaspets.domain.DTO.ProductDTO;
 import com.backend.luaspets.domain.repository.ProductRepository;
-import com.backend.luaspets.persistance.repository.ProductRepositoryImpl;
+import com.backend.luaspets.persistance.ProductRepositoryImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

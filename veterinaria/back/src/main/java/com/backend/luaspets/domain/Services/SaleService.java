@@ -1,10 +1,6 @@
 package com.backend.luaspets.domain.Services;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,14 +8,10 @@ import org.springframework.stereotype.Service;
 import com.backend.luaspets.User.User;
 import com.backend.luaspets.domain.DTO.SaleDetailRequest;
 import com.backend.luaspets.domain.DTO.SaleDetailResponse;
-import com.backend.luaspets.persistance.crud.AccessoriesRepository;
-import com.backend.luaspets.persistance.crud.FoodRepository;
-import com.backend.luaspets.persistance.crud.MedicineRepository;
-import com.backend.luaspets.persistance.crud.SaleDetailCrudRepository;
-import com.backend.luaspets.persistance.crud.SaleCrudRepository;
-import com.backend.luaspets.persistance.entity.Product;
-import com.backend.luaspets.persistance.entity.Sale;
-import com.backend.luaspets.persistance.entity.SaleDetail;
+import com.backend.luaspets.domain.DTO.SaleRequest;
+import com.backend.luaspets.domain.DTO.SaleResponse;
+import com.backend.luaspets.domain.repository.SaleDetailRepository;
+import com.backend.luaspets.domain.repository.SaleRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -27,96 +19,58 @@ import jakarta.transaction.Transactional;
 public class SaleService {
 
     @Autowired
-    private SaleCrudRepository saleRepository;
+    private SaleRepository saleRepository;
 
     @Autowired
-    private SaleDetailCrudRepository saleDetailRepository;
+    private SaleDetailRepository saleDetailRepository;
 
-    @Autowired
-    private FoodRepository foodRepository;
 
-    @Autowired
-    private MedicineRepository medicineRepository;
-
-    @Autowired
-    private AccessoriesRepository accessoriesRepository;
-
-    public List<Sale> getAllSales() {
-        return saleRepository.findAll();
+    public List<SaleResponse> getAllSales() {
+        return saleRepository.getAll();
     }
 
     public List<SaleDetailResponse> getSaleDetailsById(Integer saleId) {
-        Sale sale = saleRepository.findById(saleId)
-            .orElseThrow(() -> new RuntimeException("Venta no encontrada: " + saleId));
-        
-        // Mapear los detalles de la venta a DTOs
-        return sale.getSaleDetail().stream().map(detail -> {
-            SaleDetailResponse dto = new SaleDetailResponse();
-            dto.setIdDetail(detail.getIdDetail());
-            dto.setQuantity(detail.getQuantity());
-            dto.setUnitPrice(detail.getUnitPrice());
-            dto.setProductId(detail.getProduct().getId());
-            dto.setProductName(detail.getProduct().getName()); // Asumiendo que Product tiene un método getName()
-            dto.setUserFullName(sale.getUser().getFullName()); // Asumiendo que User tiene un método getFullName()
-            return dto;
-        }).collect(Collectors.toList());
+        return saleDetailRepository.getBySaleId(saleId);
     }
 
     @Transactional
-    public Sale createSale(User user, List<SaleDetailRequest> saleDetailsDTO) {
-        // Crear la venta
-        Sale sale = new Sale();
-        sale.setUser(user);
-        sale.setSaleDate(LocalDateTime.now());
-        sale.setSaleStatus("COMPLETADO");
-        BigDecimal totalAmount = BigDecimal.ZERO;
+    public SaleResponse createSale(User user, List<SaleDetailRequest> saleDetailsDTO) {
+        
+        SaleRequest request = new SaleRequest();
+        request.setUserId(user.getId());
+        request.setSaleDetails(saleDetailsDTO);
+        return saleRepository.save(request, user);
+        // // Crear la venta
+        // Sale sale = new Sale();
+        // sale.setUser(user);
+        // sale.setSaleDate(LocalDateTime.now());
+        // sale.setSaleStatus("COMPLETADO");
+        // BigDecimal totalAmount = BigDecimal.ZERO;
 
-        List<SaleDetail> saleDetails = new ArrayList<>();
+        // for (SaleDetailRequest dto : saleDetailsDTO) {
+        //     Product product = resolveProduct(dto.getProductId());
+        //     if (product == null) {
+        //         throw new IllegalArgumentException("Product with ID " + dto.getProductId() + " not found.");
+        //     }
 
-        for (SaleDetailRequest dto : saleDetailsDTO) {
-            Product product = resolveProduct(dto.getProductId()); // Buscar el producto correcto
-            if (product == null) {
-                throw new IllegalArgumentException("Product with ID " + dto.getProductId() + " not found.");
-            }
+        //     if (product.getStock() < dto.getQuantity()) {
+        //         throw new IllegalArgumentException("Not enough stock for product with ID " + dto.getProductId());
+        //     }
 
-            // Validar stock
-            if (product.getStock() < dto.getQuantity()) {
-                throw new IllegalArgumentException(
-                        "Not enough stock for product with ID " + dto.getProductId() + ".");
-            }
+        //     product.setStock(product.getStock() - dto.getQuantity());
 
-            // Reducir stock
-            product.setStock(product.getStock() - dto.getQuantity());
+        //     // Calcular subtotal y acumular
+        //     BigDecimal lineTotal = product.getPrice().multiply(BigDecimal.valueOf(dto.getQuantity()));
+        //     totalAmount = totalAmount.add(lineTotal);
 
-            // Crear detalle de venta
-            SaleDetail detail = new SaleDetail();
-            detail.setSale(sale);
-            detail.setProduct(product);
-            detail.setQuantity(dto.getQuantity());
-            detail.setUnitPrice(product.getPrice());
-            saleDetails.add(detail);
+        //     // Guardar detalle usando el repositorio desacoplado
+        //     saleDetailRepository.save(dto, sale, product);
+        // }
 
-            // Sumar al monto total
-            totalAmount = totalAmount.add(product.getPrice().multiply(BigDecimal.valueOf(dto.getQuantity())));
-        }
+        // sale.setTotalAmount(totalAmount);
+        // saleRepository.save(sale);
 
-        sale.setTotalAmount(totalAmount);
-
-        // Guardar la venta y los detalles
-        saleRepository.save(sale);
-        saleDetailRepository.saveAll(saleDetails);
-
-        return sale;
+        // return sale;
     }
 
-    private Product resolveProduct(Integer productId) {
-        Product product = foodRepository.findById(productId).orElse(null);
-        if (product == null) {
-            product = medicineRepository.findById(productId).orElse(null);
-        }
-        if (product == null) {
-            product = accessoriesRepository.findById(productId).orElse(null);
-        }
-        return product;
-    }
 }
