@@ -1,0 +1,81 @@
+<app-nav></app-nav>
+<main style="margin-left: 320px; margin-right: 20px;">
+  <h1 style="padding-top: 20px;">Lista de Citas</h1>
+  <button class="btn btn-primary mb-3" (click)="showAddAppointmentForm()">Agregar Cita</button>
+  <div *ngIf="selectedAppointment || showAddForm" class="mt-4">
+    <h3 *ngIf="selectedAppointment">Editar Cita</h3>
+    <h3 *ngIf="showAddForm && !selectedAppointment">Agregar Cita</h3>     
+    <form [formGroup]="appointmentForm" (ngSubmit)="saveAppointment()" class="border p-4 rounded bg-light">
+      <div class="mb-3" *ngIf="!selectedAppointment">
+        <label class="form-label">Id Usuario:</label>
+        <input formControlName="userId" class="form-control" required />
+      </div>
+      <div class="mb-3" *ngIf="!selectedAppointment">
+        <label class="form-label">Id Servicio:</label>
+        <input formControlName="serviceId" class="form-control" required />
+      </div>
+      <div class="mb-3" *ngIf="!selectedAppointment">
+        <label class="form-label">Id Mascota:</label>
+        <input formControlName="petId" class="form-control" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Fecha:</label>
+        <input formControlName="appointmentDate" class="form-control" type="date" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Hora inicio:</label>
+        <input formControlName="startTime" class="form-control" type="time" required />
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Hora fin:</label>
+        <input formControlName="endTime" class="form-control" type="time" required />
+      </div>
+      <div class="mb-3" *ngIf="selectedAppointment">
+        <label class="form-label">Estado:</label>
+        <select formControlName="status" class="form-control" required>
+          <option value="Pendiente">PENDIENTE</option>
+          <option value="Actualizado">CONFIRMADA</option>
+        </select>
+      </div>
+      
+
+      <button type="submit" class="btn btn-success" style="margin-right: 5px;">
+        {{ selectedAppointment ? 'Actualizar' : 'Agregar' }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn btn-secondary">Cancelar</button>
+    </form>
+  </div>
+  
+  <table class="table table-striped table-bordered mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>ID Usuario</th>
+        <th>ID Servicio</th>
+        <th>ID Mascota</th>
+        <th>Fecha</th>
+        <th>Hora inicio</th>
+        <th>Hora fin</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let appointment of appointments">
+        <td>{{ appointment.id }}</td>
+        <td>{{ appointment.user.id }}</td>
+        <td>{{ appointment.service.id }}</td>
+        <td>{{ appointment.pet.id }}</td>
+        <td>{{ appointment.appointmentDate }}</td>
+        <td>{{ appointment.startTime }}</td>
+        <td>{{ appointment.endTime }}</td>
+        <td>{{ appointment.status }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" (click)="editAppointment(appointment)" style="margin-right: 5px;">Editar</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteAppointment(appointment.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+

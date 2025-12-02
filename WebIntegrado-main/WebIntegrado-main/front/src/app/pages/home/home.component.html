@@ -1,0 +1,113 @@
+<app-header></app-header>
+<app-nav></app-nav>
+<main>
+  <!-- Hero Section -->
+  <section class="hero section-relative">
+    <div class="bg-pattern-paw"></div>
+    <div class="hero-content">
+      <h1>Bienvenido a <span class="text-primary">LuasPets</span> <i class="fa-solid fa-paw text-primary"
+          style="font-size: 0.5em; vertical-align: middle;"></i></h1>
+      <p>Somos el mejor amigo de tu amigo. Cuidamos de ellos con el amor que merecen.</p>
+      <div class="hero-buttons">
+        <a routerLink="/petshop" class="btn btn-primary">Ver Productos</a>
+        <a routerLink="/appointment" class="btn btn-secondary">Reservar Cita</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="assets/images/luaspets3.jpg" alt="Happy Pet">
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services-section section-relative">
+    <div class="container" style="position: relative; z-index: 1;">
+      <h2 class="section-title">Nuestros Servicios <i class="fa-solid fa-user-doctor text-primary"></i></h2>
+      <div class="services-grid">
+        <div class="service-card card" *ngFor="let servicio of servicios">
+          <div class="service-image">
+            <img [src]="servicio.imagen" alt="{{ servicio.nombre }}" />
+          </div>
+          <div class="service-info">
+            <h3>{{ servicio.nombre }}</h3>
+            <p>{{ servicio.descripcion }}</p>
+            <div class="service-footer">
+              <span class="price">{{ servicio.precio }}</span>
+              <button class="btn-icon"><i class="fa-solid fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients Section -->
+  <section class="clients-section section-relative">
+    <div class="bg-pattern-paw" style="opacity: 0.03;"></div>
+    <div class="container" style="position: relative; z-index: 1;">
+      <h2 class="section-title">Nuestros Clientes Felices <i class="fa-solid fa-heart text-danger"></i></h2>
+      <div class="clients-grid">
+        <div class="client-item" *ngFor="let cliente of clientes">
+          <img [src]="cliente.imagen" alt="Cliente Feliz" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section section-relative">
+    <div class="container">
+      <h2 class="section-title">Contáctanos <i class="fa-solid fa-envelope text-accent"></i></h2>
+      <div class="contact-wrapper card">
+        <form class="contact-form">
+          <h3>Envíanos un mensaje <i class="fa-solid fa-paper-plane text-primary"></i></h3>
+          <div class="form-group">
+            <label>Nombre Completo</label>
+            <input type="text" class="form-control" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Asunto</label>
+            <input type="text" class="form-control" placeholder="Motivo de contacto">
+          </div>
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" class="form-control" placeholder="tucorreo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea class="form-control" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+          </div>
+          <button class="btn btn-primary w-100"><i class="fa-regular fa-paper-plane"></i> Enviar Mensaje</button>
+        </form>
+
+        <div class="contact-info">
+          <h3>Información de Contacto</h3>
+          <div class="info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <p>Mz F Lt 1 El Haras de Chillon, Puente Piedra, Peru</p>
+          </div>
+          <div class="info-item">
+            <i class="fa-brands fa-whatsapp"></i>
+            <p>968 328 872</p>
+          </div>
+          <div class="info-item">
+            <i class="fa-regular fa-clock"></i>
+            <div>
+              <p>Lunes a Sábado: 9:00 am - 9:00 pm</p>
+              <p>Domingos: 10:00 am - 2:00 pm</p>
+            </div>
+          </div>
+          <div class="social-links">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          </div>
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1951.8647641450536!2d-77.08503963720658!3d-11.923901693561168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105d1ebbec97043%3A0x6df2903c247555e2!2sVeterinaria%20LUA%C2%B4S%20PETS!5e0!3m2!1ses-419!2spe!4v1729319810243!5m2!1ses-419!2spe"
+              width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<app-footer></app-footer>

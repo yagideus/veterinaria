@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="logo">
+      <a routerLink="/home">
+        <img src="assets/images/logotipo.png" alt="LuasPets Logo" />
+      </a>
+    </div>
+
+    <div class="nav-links">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/blog" routerLinkActive="active">Blog</a>
+      <a routerLink="/petshop" routerLinkActive="active">Petshop</a>
+      <a routerLink="/perfil" routerLinkActive="active" *ngIf="userLoginOn">Perfil</a>
+      <a *ngIf="isAdmin" routerLink="/users" routerLinkActive="active">Admin</a>
+    </div>
+
+    <div class="nav-actions">
+      <a routerLink="/cart" class="cart-btn" routerLinkActive="active">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+
+      <a routerLink="/appointment" class="btn btn-primary btn-sm">
+        Reserva Tu Cita
+      </a>
+
+      <a *ngIf="!userLoginOn" routerLink="/iniciar-sesion" class="login-link">Iniciar Sesión</a>
+      <a *ngIf="userLoginOn" (click)="logout()" class="logout-link">Cerrar Sesión</a>
+    </div>
+  </div>
+</nav>

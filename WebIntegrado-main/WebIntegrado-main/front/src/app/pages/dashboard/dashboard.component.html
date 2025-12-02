@@ -1,0 +1,68 @@
+<app-header></app-header>
+<app-nav></app-nav>
+
+<div class="dashboard-container">
+    <div class="container">
+
+        <!-- Status Alerts -->
+        <div *ngIf="!userLoginOn" class="alert alert-danger">
+            <i class="fa-solid fa-circle-exclamation"></i> Usuario NO autenticado
+        </div>
+        <div *ngIf="userLoginOn" class="alert alert-success">
+            <i class="fa-solid fa-check-circle"></i> Bienvenido de nuevo
+        </div>
+
+        <div class="dashboard-grid">
+            <!-- Sidebar / Profile Summary -->
+            <aside class="dashboard-sidebar">
+                <div class="card profile-card">
+                    <div class="profile-header">
+                        <div class="avatar-placeholder">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <h2>Mi Perfil</h2>
+                        <p class="text-muted">Gestiona tu información personal</p>
+                    </div>
+                    <nav class="dashboard-nav">
+                        <a href="#" class="nav-link active"><i class="fa-solid fa-user-gear"></i> Datos Personales</a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-paw"></i> Mis Mascotas</a>
+                        <a href="#" class="nav-link"><i class="fa-solid fa-clock-rotate-left"></i> Historial</a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="dashboard-content">
+                <!-- Personal Details Section -->
+                <section class="content-section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-id-card"></i> Datos Personales</h3>
+                        </div>
+                        <div class="card-body">
+                            <app-personal-details></app-personal-details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pets Section -->
+                <section class="content-section mt-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-paw"></i> Mis Mascotas</h3>
+                            <button class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> Agregar</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="empty-state">
+                                <i class="fa-solid fa-dog"></i>
+                                <p>Aún no has registrado mascotas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

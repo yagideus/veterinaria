@@ -1,0 +1,105 @@
+<aside class="aside">
+  <nav class="sidebar" id="sidebar">
+    <div class="logo">
+      <h2 class="logotipo">Lua's Pets Admin</h2>
+      <!-- <button class="abrir" id="abrir"><i class="fa-solid fa-bars"></i></button> -->
+    </div>
+    <div class="opciones">
+      <li>
+        <input type="radio" id="usuarios" name="sidebar" />
+        <label
+          for="usuarios"
+          routerLink="/users"
+          routerLinkActive="router-link-active"
+        >
+          <i class="fa-solid fa-users"></i>
+          <p>Usuarios</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="mascotas" name="sidebar" />
+        <label
+          for="mascotas"
+          routerLink="/pets"
+          routerLinkActive="router-link-active"
+        >
+        <i class="fa-solid fa-paw"></i>
+          <p>Mascotas</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="citas" name="sidebar" />
+        <label for="citas" routerLink="/appointments" routerLinkActive="router-link-active" >
+          <i class="fa-regular fa-calendar-check"></i>
+          <p>Citas</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="servicios" name="sidebar" />
+        <label for="servicios" routerLink="/services" routerLinkActive="router-link-active" >
+          <i class="fa-solid fa-shield-dog"></i>
+          <p>Servicios</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="alimentos" name="sidebar" />
+        <label for="alimentos" routerLink="/food" routerLinkActive="router-link-active" >
+          <i class="fa-solid fa-bone"></i>
+          <p>Almacen Alimentos</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="accesorios" name="sidebar" />
+        <label for="accesorios" routerLink="/accesories" routerLinkActive="router-link-active" >
+          <i class="fa-solid fa-truck-arrow-right"></i>
+          <p>Almacen Accesorios</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="medicina" name="sidebar" />
+        <label for="medicina" routerLink="/medicine" routerLinkActive="router-link-active" >
+          <i class="fa-solid fa-suitcase-medical"></i>
+          <p>Almacen Medicinas</p>
+        </label>
+      </li>
+      <li>
+        <input type="radio" id="ventas" name="sidebar" />
+        <label for="ventas" routerLink="/sales" routerLinkActive="router-link-active" >
+          <i class="fa-regular fa-pen-to-square"></i>
+          <p>Ventas</p>
+        </label>
+      </li>
+    </div>
+
+      <div class="salir">
+      <div class="option2">
+        <input type="radio" id="cerrar-sesion" name="sidebar" />
+        <label for="cerrar-sesion">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <p routerLink="/home" routerLinkActive="active">
+            Regresar a Principal
+          </p>
+        </label>
+      </div>
+    </div>
+    <div class="salir">
+      <div class="option">
+        <input type="radio" id="cerrar-sesion" name="sidebar" />
+        <label for="cerrar-sesion">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <p
+            routerLink="/iniciar-sesion"
+            (click)="logout()"
+            routerLinkActive="active"
+          >
+            Cerrar Sesión
+          </p>
+        </label>
+      </div>
+    </div>
+  </nav>
+</aside>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>

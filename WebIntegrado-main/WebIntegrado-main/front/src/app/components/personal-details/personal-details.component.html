@@ -1,0 +1,63 @@
+<p *ngIf="errorMessage.length!=0" class="text-danger">{{errorMessage}}</p>
+<div>
+    <p><b> Nombre: </b> {{user?.fullName}} </p>
+    <p><b> Correo: </b> {{user?.username}} </p>
+    <p><b> DNI: </b> {{user?.dni}}</p>
+    <p><b> Direccion: </b> {{user?.address}}</p>
+    <p><b> Teléfono: </b> {{user?.phoneNumber}}</p>
+
+    <button *ngIf="userLoginOn && !editMode" (click)="editMode=true"  class="btn btn-dark"><img
+        src="https://cdn.icon-icons.com/icons2/1572/PNG/96/3592815-compose-create-edit-edit-file-office-pencil-writing_107734.png"
+        width="8%" alt="editar" />Editar Datos Personales</button>
+</div>
+
+<form *ngIf="userLoginOn && editMode" [formGroup]="registerForm" >
+    <div class="form-group row">
+        <label for="inputFullName" class="col-sm-1 col-form-label">Nombre Completo</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="fullName" class="form-control" id="inputFullName">
+        
+            <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="text-danger">
+                <div *ngIf="fullName.errors?.['required']">
+                    El Nombre es requerido.
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputEmail" class="col-sm-1 col-form-label">DNI</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="dni" class="form-control" id="inputEmail">
+        <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="text-danger">
+            <div *ngIf="dni.errors?.['required']">
+                El DNI es requerido.
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="form-group row pb-3" >
+        <label for="inputaddress" class="col-sm-1 col-form-label">Dirección</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="address" class="form-control" id="inputaddress" >
+        <div *ngIf="address.invalid && (address.dirty || address.touched)" class="text-danger">
+            <div *ngIf="address.errors?.['required']">
+                La dirección es requerida.
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="form-group row pb-3" >
+        <label for="inputphoneNumber" class="col-sm-1 col-form-label">Teléfono</label>
+        <div class="col-sm-11">
+        <input type="text" formControlName="phoneNumber" class="form-control" id="inputphoneNumber" >
+        <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="text-danger">
+            <div *ngIf="phoneNumber.errors?.['required']">
+                El número telefónico es requerido.
+            </div>
+        </div>
+    </div>
+    </div>
+    <button type="submit" (click)="updateUserDetails()"  class="btn btn-dark mt-3">Guardar</button>
+    <a class="btn btn-danger mt-3" (click)="editMode=false">Cancelar</a>
+</form>

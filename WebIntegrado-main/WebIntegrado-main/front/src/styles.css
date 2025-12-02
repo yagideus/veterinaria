@@ -1,0 +1,164 @@
+/* Modern Design System - Veterinary Theme */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Colors - Veterinary Pink Theme */
+  --primary: #EC407A;
+  /* Pink 400 - Warm & Friendly */
+  --primary-hover: #D81B60;
+  /* Pink 600 */
+  --secondary: #26A69A;
+  /* Teal 400 - Medical/Clean complement */
+  --accent: #FFCA28;
+  /* Amber 400 - Cheerful accents */
+  --dark: #4A4A4A;
+  /* Softer Dark Gray */
+  --light: #FFF5F7;
+  /* Very light pinkish white for backgrounds */
+  --white: #ffffff;
+  --text-main: #374151;
+  /* Gray 700 */
+  --text-muted: #6B7280;
+  /* Gray 500 */
+  --danger: #EF4444;
+  /* Red 500 */
+
+  /* Shadows - Softer & Warmer */
+  --shadow-sm: 0 1px 2px 0 rgba(236, 64, 122, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(236, 64, 122, 0.1), 0 2px 4px -1px rgba(236, 64, 122, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(236, 64, 122, 0.1), 0 4px 6px -2px rgba(236, 64, 122, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(236, 64, 122, 0.1), 0 10px 10px -5px rgba(236, 64, 122, 0.04);
+
+  /* Border Radius - More playful/organic */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+
+  /* Typography */
+  --font-sans: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--light);
+  color: var(--text-main);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--text-main);
+  border: 1px solid #E5E7EB;
+}
+
+.btn-secondary:hover {
+  background-color: #F9FAFB;
+}
+
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Form Styles */
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #D1D5DB;
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Angular Validation Styles */
+.ng-valid:not(form).ng-touched {
+  border-left: 5px solid var(--secondary);
+}
+
+.ng-invalid:not(form).ng-touched {
+  border-left: 5px solid var(--danger);
+}
+
+/* Veterinary Theme Utilities */
+.bg-pattern-paw {
+  background-image: radial-gradient(var(--primary) 15%, transparent 16%),
+    radial-gradient(var(--primary) 15%, transparent 16%);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  opacity: 0.05;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-relative {
+  position: relative;
+  overflow: hidden;
+}

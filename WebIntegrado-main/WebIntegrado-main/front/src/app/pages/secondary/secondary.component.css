@@ -1,0 +1,109 @@
+main{
+  width: 1200px;
+  margin: 0 auto;
+}
+
+p{
+  font-size: 21px;
+}
+
+.section-title h1{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title p{
+  width: 100%;
+  text-align: justify;
+  margin-bottom: 40px;
+}
+
+
+
+.section-title h1 {
+  font-size: 48px;
+  color: #333;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 45px;
+}
+
+.informacion {
+  padding: 60px 20px;
+}
+
+.informacion .container {
+  display: flex;
+  max-width: 1200px;
+  margin: 20px auto;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* Mantiene alineados los textos y la imagen */
+}
+
+.informacion .content {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  /* Limita el ancho del bloque de texto */
+}
+
+.informacion .text-block {
+  margin-bottom: 40px;
+}
+
+/* Justificación del texto */
+.informacion .text-block p {
+  font-size: 21px;
+  color: #333;
+  text-align: justify;
+}
+
+
+.informacion .text-block h2 {
+  font-size: 36px;
+  color: #fcd873;
+  margin-bottom: 6px;
+}
+
+.informacion .image {
+  align-content: center;
+  max-width: 440px;
+  /* Limita el ancho de la imagen */
+  margin-left: 50px;
+  /* Espacio entre el texto y la imagen */
+}
+
+.informacion .image img {
+  max-width: 100%;
+  border-radius: 10px;
+  /* Bordes redondeados para la imagen */
+}
+
+@media (max-width: 768px) {
+  .informacion .container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  main{
+      width: auto;
+  }
+
+  .informacion .image {
+      margin-left: 0;
+      margin-top: 20px;
+      /* Añade espacio superior en pantallas pequeñas */
+      max-width: 100%;
+      /* Permite que la imagen ocupe todo el ancho disponible */
+  }
+
+  .informacion .text-block h2 {
+      font-size: 28px;
+  }
+
+  .informacion .text-block p {
+      font-size: 20px;
+  }
+}

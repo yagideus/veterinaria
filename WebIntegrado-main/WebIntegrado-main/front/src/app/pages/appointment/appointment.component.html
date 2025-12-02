@@ -1,0 +1,120 @@
+<main class="appointment-container">
+  <div class="appointment-content">
+    <h1 class="appointment-title">
+      <i class="fa-solid fa-calendar-check"></i> Reserva tu Cita
+    </h1>
+    <p class="appointment-subtitle">Completa el formulario para agendar una cita para tu mascota</p>
+
+    <div *ngIf="errorMessage && !successMessage" class="alert alert-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      {{ errorMessage }}
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      <i class="fa-solid fa-circle-check"></i>
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" class="appointment-form">
+      <!-- Selección de Mascota -->
+      <div class="form-group">
+        <label for="petId" class="form-label">
+          <i class="fa-solid fa-paw"></i> Selecciona tu Mascota
+        </label>
+        <select formControlName="petId" id="petId" class="form-control"
+          [class.invalid]="petId?.invalid && (petId?.dirty || petId?.touched)">
+          <option value="">-- Selecciona una mascota --</option>
+          <option *ngFor="let pet of pets" [value]="pet.id">
+            {{ pet.name }} - {{ pet.species }} ({{ pet.breed }})
+          </option>
+        </select>
+        <div *ngIf="petId?.invalid && (petId?.dirty || petId?.touched)" class="error-message">
+          <div *ngIf="petId?.errors?.['required']">Debes seleccionar una mascota</div>
+        </div>
+        <div *ngIf="getSelectedPet()" class="pet-info">
+          <p><strong>Mascota seleccionada:</strong> {{ getSelectedPet()?.name }}</p>
+          <p><strong>Especie:</strong> {{ getSelectedPet()?.species }} | <strong>Raza:</strong> {{
+            getSelectedPet()?.breed }} | <strong>Tamaño:</strong> {{ getSelectedPet()?.size }}</p>
+        </div>
+      </div>
+
+      <!-- Selección de Servicio -->
+      <div class="form-group">
+        <label for="serviceId" class="form-label">
+          <i class="fa-solid fa-stethoscope"></i> Selecciona el Servicio
+        </label>
+        <select formControlName="serviceId" id="serviceId" class="form-control"
+          [class.invalid]="serviceId?.invalid && (serviceId?.dirty || serviceId?.touched)">
+          <option value="">-- Selecciona un servicio --</option>
+          <option *ngFor="let service of services" [value]="service.id">
+            {{ service.name }} - S/{{ service.cost }} ({{ service.petSize }})
+          </option>
+        </select>
+        <div *ngIf="serviceId?.invalid && (serviceId?.dirty || serviceId?.touched)" class="error-message">
+          <div *ngIf="serviceId?.errors?.['required']">Debes seleccionar un servicio</div>
+        </div>
+        <div *ngIf="getSelectedService()" class="service-info">
+          <p><strong>Servicio seleccionado:</strong> {{ getSelectedService()?.name }}</p>
+          <p><strong>Costo:</strong> S/{{ getSelectedService()?.cost }} | <strong>Tamaño recomendado:</strong> {{
+            getSelectedService()?.petSize }}</p>
+        </div>
+      </div>
+
+      <!-- Fecha de la Cita -->
+      <div class="form-group">
+        <label for="appointmentDate" class="form-label">
+          <i class="fa-solid fa-calendar-days"></i> Fecha de la Cita
+        </label>
+        <input type="date" formControlName="appointmentDate" id="appointmentDate" class="form-control"
+          [class.invalid]="appointmentDate?.invalid && (appointmentDate?.dirty || appointmentDate?.touched)">
+        <div *ngIf="appointmentDate?.invalid && (appointmentDate?.dirty || appointmentDate?.touched)"
+          class="error-message">
+          <div *ngIf="appointmentDate?.errors?.['required']">Debes seleccionar una fecha</div>
+        </div>
+      </div>
+
+      <!-- Hora de Inicio -->
+      <div class="form-group">
+        <label for="startTime" class="form-label">
+          <i class="fa-solid fa-clock"></i> Hora de Inicio
+        </label>
+        <input type="time" formControlName="startTime" id="startTime" class="form-control"
+          [class.invalid]="startTime?.invalid && (startTime?.dirty || startTime?.touched)">
+        <div *ngIf="startTime?.invalid && (startTime?.dirty || startTime?.touched)" class="error-message">
+          <div *ngIf="startTime?.errors?.['required']">Debes seleccionar una hora de inicio</div>
+        </div>
+      </div>
+
+      <!-- Hora de Fin -->
+      <div class="form-group">
+        <label for="endTime" class="form-label">
+          <i class="fa-solid fa-clock"></i> Hora de Fin
+        </label>
+        <input type="time" formControlName="endTime" id="endTime" class="form-control"
+          [class.invalid]="endTime?.invalid && (endTime?.dirty || endTime?.touched)">
+        <div *ngIf="endTime?.invalid && (endTime?.dirty || endTime?.touched)" class="error-message">
+          <div *ngIf="endTime?.errors?.['required']">Debes seleccionar una hora de fin</div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary"
+          [disabled]="appointmentForm.invalid || isLoading || pets.length === 0">
+          <i class="fa-solid fa-check" *ngIf="!isLoading"></i>
+          <i class="fa-solid fa-spinner fa-spin" *ngIf="isLoading"></i>
+          {{ isLoading ? 'Reservando...' : 'Reservar Cita' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="appointmentForm.reset()" [disabled]="isLoading">
+          <i class="fa-solid fa-xmark"></i> Limpiar Formulario
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="pets.length === 0" class="info-box">
+      <i class="fa-solid fa-info-circle"></i>
+      <p>No tienes mascotas registradas. <a routerLink="/dashboard">Registra una mascota aquí</a></p>
+    </div>
+  </div>
+</main>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">

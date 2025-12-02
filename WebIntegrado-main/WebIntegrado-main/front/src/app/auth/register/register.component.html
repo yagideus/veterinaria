@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lua's Pets - Registro</title>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="register-container">
+            <div class="register-card">
+
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                  <img src="assets/images/logotipo.png">
+                    <p class="error-message">{{ errorMessage }}</p>
+
+                    <!-- Campo de nombre completo -->
+                    <div class="input-group">
+                        <label for="fullName">Nombre Completo</label>
+                        <input
+                            formControlName="fullName"
+                            id="fullName"
+                            type="text"
+                            placeholder="Ingresa tu nombre completo"
+                            required>
+                        <div *ngIf="fullName?.invalid && (fullName?.dirty || fullName?.touched)" class="error-message">
+                            <div *ngIf="fullName?.errors?.['required']">El nombre completo es requerido.</div>
+                            <div *ngIf="fullName?.errors?.['pattern']">No se permiten números en este campo.</div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de DNI -->
+                    <div class="input-group">
+                        <label for="dni">DNI</label>
+                        <input
+                            formControlName="dni"
+                            id="dni"
+                            type="text"
+                            placeholder="Ingresa tu DNI"
+                            required>
+                        <div *ngIf="dni?.invalid && (dni?.dirty || dni?.touched)" class="error-message">
+                            <div *ngIf="dni?.errors?.['required']">El DNI es requerido.</div>
+                            <div *ngIf="dni?.errors?.['pattern']">Solo se permiten números en este campo.</div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de email -->
+                    <div class="input-group">
+                        <label for="username">Email</label>
+                        <input
+                            formControlName="username"
+                            id="username"
+                            type="email"
+                            placeholder="Ingresa tu email"
+                            required>
+                        <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="error-message">
+                            <div *ngIf="username?.errors?.['required']">El email es requerido.</div>
+                            <div *ngIf="username?.errors?.['email']">El email debe tener un formato válido.</div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de dirección -->
+                    <div class="input-group">
+                        <label for="address">Dirección</label>
+                        <input
+                            formControlName="address"
+                            id="address"
+                            type="text"
+                            placeholder="Ingresa tu dirección"
+                            required>
+                        <div *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="error-message">
+                            <div *ngIf="address?.errors?.['required']">La dirección es requerida</div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de número de teléfono -->
+                    <div class="input-group">
+                        <label for="phoneNumber">Número de Teléfono</label>
+                        <input
+                            formControlName="phoneNumber"
+                            id="phoneNumber"
+                            type="text"
+                            placeholder="Ingresa tu número de teléfono"
+                            required>
+                        <div *ngIf="phoneNumber?.invalid && (phoneNumber?.dirty || phoneNumber?.touched)" class="error-message">
+                            <div *ngIf="phoneNumber?.errors?.['required']">El número de teléfono es requerido.</div>
+                            <div *ngIf="phoneNumber?.errors?.['pattern']">Solo se permiten números en este campo.</div>
+                        </div>
+                    </div>
+
+                    <!-- Campo de contraseña -->
+                    <div class="input-group">
+                        <label for="password">Contraseña</label>
+                        <input
+                            formControlName="password"
+                            id="password"
+                            type="password"
+                            placeholder="Ingresa tu contraseña"
+                            required>
+                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="error-message">
+                            <div *ngIf="password?.errors?.['required']">La contraseña es requerida.</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Registrarse</button>
+                </form>
+                <p class="register-link">
+                    ¿Ya tienes una cuenta? <a routerLink="/iniciar-sesion">Inicia sesión aquí</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

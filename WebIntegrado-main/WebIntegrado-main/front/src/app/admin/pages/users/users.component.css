@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+main{
+  margin-left: 350px;
+  margin-right: 50px;
+  font-family: "Inria Sans", sans-serif;
+}
+
+.error-message {
+  color: red; /* Color rojo para mensajes de error */
+  font-size: 0.875rem; /* Tamaño de fuente para mensajes de error */
+}
+
+h1 {
+  margin-top: 0px;
+  margin-left: 350px;
+  padding-top: 40px;
+  font-size: 50px;
+}
+
+@media screen and (max-width: 992px) {
+  main, h1 {
+    margin-left: 150px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contenido {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "campo1"
+      "campo2"
+      "campo3"
+      "campo4"
+      "campo5"
+      "campo6"
+      "campo7"
+      "botones";
+  }
+}
+
+
+
+
+

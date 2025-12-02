@@ -1,0 +1,93 @@
+<app-header></app-header>
+<app-nav></app-nav>
+
+<section class="shop-header">
+  <div class="container">
+    <div class="header-content">
+      <div class="text-content">
+        <h1>Bienestar para tu mascota</h1>
+        <p>Encuentra los mejores alimentos, accesorios y medicinas.</p>
+      </div>
+      <div class="header-image">
+        <img src="assets/images/imagennav.png" alt="Shop Header">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shop-content">
+  <div class="container">
+    <div class="category-selector">
+      <button class="category-btn" [class.active]="productSelect === 'alimento'" (click)="switchProduct('alimento')">
+        <i class="fa-solid fa-bowl-food"></i> Alimentos
+      </button>
+      <button class="category-btn" [class.active]="productSelect === 'accesorio'" (click)="switchProduct('accesorio')">
+        <i class="fa-solid fa-bone"></i> Accesorios
+      </button>
+      <button class="category-btn" [class.active]="productSelect === 'medicamento'"
+        (click)="switchProduct('medicamento')">
+        <i class="fa-solid fa-kit-medical"></i> Medicamentos
+      </button>
+    </div>
+
+    <div class="products-grid" [ngSwitch]="productSelect">
+
+      <!-- Alimentos -->
+      <ng-container *ngSwitchCase="'alimento'">
+        <div class="product-card card" *ngFor="let alimento of alimentos">
+          <div class="product-image">
+            <img [src]="alimento.image_url" alt="{{alimento.name}}">
+          </div>
+          <div class="product-info">
+            <h3>{{alimento.name}}</h3>
+            <div class="price-row">
+              <span class="price">S/{{alimento.price}}</span>
+              <button class="btn btn-primary btn-sm" (click)="addToCart(alimento, 1)">
+                <i class="fa-solid fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Accesorios -->
+      <ng-container *ngSwitchCase="'accesorio'">
+        <div class="product-card card" *ngFor="let accesorio of accesorios">
+          <div class="product-image">
+            <img [src]="accesorio.image_url" alt="{{accesorio.name}}">
+          </div>
+          <div class="product-info">
+            <h3>{{accesorio.name}}</h3>
+            <div class="price-row">
+              <span class="price">S/{{accesorio.price}}</span>
+              <button class="btn btn-primary btn-sm" (click)="addToCart(accesorio, 1)">
+                <i class="fa-solid fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Medicamentos -->
+      <ng-container *ngSwitchCase="'medicamento'">
+        <div class="product-card card" *ngFor="let medicamento of medicamentos">
+          <div class="product-image">
+            <img [src]="medicamento.image_url" alt="{{medicamento.name}}">
+          </div>
+          <div class="product-info">
+            <h3>{{medicamento.name}}</h3>
+            <div class="price-row">
+              <span class="price">S/{{medicamento.price}}</span>
+              <button class="btn btn-primary btn-sm" (click)="addToCart(medicamento, 1)">
+                <i class="fa-solid fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

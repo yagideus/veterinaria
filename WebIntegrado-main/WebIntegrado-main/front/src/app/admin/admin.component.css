@@ -1,0 +1,113 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inria Sans", sans-serif;
+}
+
+main{
+  margin-left: 330px;
+  margin-right: 20px;
+}
+
+main h1{
+  padding-top: 20px;
+}
+
+
+.contenedor {
+  margin-left: 350px;
+  margin-right: 50px;
+}
+
+.contenido {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(6, auto);
+  grid-template-areas:
+    "campo1 campo2"
+    "campo3 campo4"
+    "campo5 campo6"
+    "campo7 campo7"
+    "botones botones";
+}
+
+.contenido > div {
+  padding: 5px;
+  border-radius: 4px;
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  flex-direction: column;
+  font-family: "Inria Sans", sans-serif;
+  font-size: 20px;
+}
+
+.contenido .botones {
+  grid-area: botones;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.contenido button {
+  background-color: rgb(177, 177, 177);
+  color: #000;
+  width: 200px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenido button:hover {
+  background-color: #FFAE63;
+}
+
+input,
+select {
+  padding-left: 15px;
+  width: 90%;
+  height: 40px;
+  margin-top: 5px;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+select {
+  background-color: white;
+  appearance: none;
+  padding-right: 30px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 5" width="10" height="5"><polygon points="0,0 10,0 5,5" fill="black" /></svg>'); /* Icono de la flecha como triángulo */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+@media screen and (max-width: 992px) {
+  .contenedor, h1 {
+    margin-left: 150px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contenido {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "campo1"
+      "campo2"
+      "campo3"
+      "campo4"
+      "campo5"
+      "campo6"
+      "campo7"
+      "botones";
+  }
+}
